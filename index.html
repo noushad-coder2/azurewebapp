@@ -6,24 +6,16 @@
 </head>
 <body>
     <h1>Names List:</h1>
-    <ul id="namesList">
+    <ul>
+        {% for name in names %}
+            <li>{{ name }}</li>
+        {% endfor %}
     </ul>
 
-    <input type="text" id="nameInput">
-    <button onclick="saveName()">Save Name</button>
-
-    <script>
-        function saveName() {
-            var nameInput = document.getElementById("nameInput");
-            var name = nameInput.value;
-            nameInput.value = "";
-
-            var namesList = document.getElementById("namesList");
-            var listItem = document.createElement("li");
-            listItem.textContent = name;
-            namesList.appendChild(listItem);
-        }
-    </script>
+    <form method="post" action="/save">
+        <label for="name">Enter a name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Save Name</button>
+    </form>
 </body>
 </html>
-
