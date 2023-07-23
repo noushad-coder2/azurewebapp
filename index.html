@@ -1,1 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Saving Program</title>
+</head>
+<body>
+    <h1>Names List:</h1>
+    <ul id="namesList">
+    </ul>
+
+    <input type="text" id="nameInput">
+    <button onclick="saveName()">Save Name</button>
+
+    <script>
+        function saveName() {
+            var nameInput = document.getElementById("nameInput");
+            var name = nameInput.value;
+            nameInput.value = "";
+
+            var namesList = document.getElementById("namesList");
+            var listItem = document.createElement("li");
+            listItem.textContent = name;
+            namesList.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
 
