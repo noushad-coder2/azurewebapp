@@ -1,10 +1,15 @@
-import json
-from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 import os
+import json
+from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-app.config['STATIC_FOLDER'] = 'static'  # Configuring the static folder
+
+# Get the absolute path to the Flask app's root directory
+app_root = os.path.abspath(os.path.dirname(__file__))
+
+# Specify the path to the slogans.json file using the app_root
+slogans_file_path = os.path.join(app_root, "slogans.json")
 
 candidates = {
     "Noushad": 0,
@@ -12,7 +17,7 @@ candidates = {
 }
 
 # Load slogans from JSON file
-with open("slogans.json", "r") as f:
+with open(slogans_file_path, "r") as f:
     slogans = json.load(f)
 
 @app.route("/", methods=["GET", "POST"])
@@ -29,12 +34,6 @@ def index():
 @app.route("/results")
 def results():
     return render_template("results.html", candidates=candidates)
-
-# Route to serve static files
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    root_dir = os.path.abspath(os.path.dirname(__file__))
-    return send_from_directory(os.path.join(root_dir, app.config['STATIC_FOLDER']), filename)
 
 if __name__ == "__main__":
     app.run()
