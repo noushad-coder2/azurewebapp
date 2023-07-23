@@ -1,21 +1,45 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Name Saving Program</title>
+    <title>Vote for a Candidate</title>
+    <style>
+        body {
+            animation: changeColor 10s infinite;
+        }
+
+        @keyframes changeColor {
+            0% { background-color: #ff7f50; } /* Coral */
+            25% { background-color: #ffa500; } /* Orange */
+            50% { background-color: #00ced1; } /* Dark Turquoise */
+            75% { background-color: #66cdaa; } /* Medium Aquamarine */
+            100% { background-color: #ff69b4; } /* Hot Pink */
+        }
+
+        .candidate {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .candidate img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Tell ME YOUR NAME:</h1>
-    <ul>
-        {% for name in names %}
-            <li>{{ name }}</li>
+    <h1>Vote for a Candidate</h1>
+    <form method="post">
+        {% for candidate, slogan in candidates.items() %}
+            <div class="candidate">
+                <img src="{{ url_for('static', filename=candidate + '.jpg') }}" alt="{{ candidate }}">
+                <p>{{ slogan }}</p>
+                <input type="radio" name="candidate" value="{{ candidate }}"> Vote for {{ candidate }}
+            </div>
         {% endfor %}
-    </ul>
-
-    <form method="post" action="/save">
-        <label for="name">Enter a name:</label>
-        <input type="text" id="name" name="name">
-        <button type="submit">Save Name</button>
+        <br>
+        <input type="submit" value="Vote">
     </form>
 </body>
 </html>

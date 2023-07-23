@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Election Results</title>
+</head>
+<body>
+    <h1>Election Results</h1>
+    <ul>
+        {% for candidate, votes in candidates.items() %}
+            <li>{{ candidate }}: {{ votes }} votes</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Vote again</a>
+</body>
+</html>
